@@ -147,6 +147,20 @@ app.patch('/users/:id', (req,res)=>{
   }
 })
 
+app.delete('/users/:id/delete',(req,res)=>{
+  try{
+    let { id } = req.params;
+    let q = `delete from user where id = ${id}`;
+    connection.query(q, (err,result)=>{
+      if(err)  throw err;
+      else{
+        res.redirect('/users');
+      }
+    })
+  }catch(err){
+    res.send(err);
+  }
+})
 app.listen(3000, ()=>{
   console.log('app running successfully on 3000');
 })
